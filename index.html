@@ -1215,11 +1215,25 @@
       aspect-ratio: 9 / 14;
       overflow: hidden;
       background: #171717;
+      -webkit-tap-highlight-color: transparent;
     }
     .video-card video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+    .video-poster {
+      position: absolute;
+      z-index: 2;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      transition: opacity .28s ease;
+    }
+    .video-card.is-playing .video-poster {
+      opacity: 0;
     }
     .video-card figcaption {
       position: absolute;
@@ -1241,31 +1255,52 @@
       left: 50%;
       display: grid;
       place-items: center;
-      width: 58px;
-      height: 58px;
+      width: 64px;
+      height: 64px;
       padding: 0;
-      border: 1px solid rgba(255,255,255,.8);
+      border: 0;
       border-radius: 50%;
-      background: rgba(148,27,38,.88);
-      color: var(--paper);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0)),
+        rgba(148,27,38,.94);
+      color: #fff;
+      box-shadow:
+        0 10px 28px rgba(56,15,19,.28),
+        inset 0 1px 0 rgba(255,255,255,.35);
       cursor: pointer;
       transform: translate(-50%, -50%);
-      transition: opacity .2s ease, background .2s ease;
+      transition: transform .2s ease, background .2s ease, opacity .2s ease, box-shadow .2s ease;
       -webkit-appearance: none;
       appearance: none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      font-size: 0;
+      line-height: 0;
     }
-    .play-overlay svg {
+    .play-overlay::before {
+      content: "";
       display: block;
-      width: 22px;
-      height: 22px;
-      margin-left: 3px;
-      fill: currentColor;
+      width: 0;
+      height: 0;
+      margin-left: 4px;
+      border-style: solid;
+      border-width: 11px 0 11px 18px;
+      border-color: transparent transparent transparent currentColor;
     }
     .play-overlay:hover,
     .play-overlay:focus-visible {
-      background: var(--accent-dark);
-      outline: 2px solid var(--paper);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.2), rgba(255,255,255,0)),
+        var(--accent-dark);
+      box-shadow:
+        0 14px 32px rgba(56,15,19,.36),
+        inset 0 1px 0 rgba(255,255,255,.4);
+      outline: 2px solid rgba(255,255,255,.92);
       outline-offset: 3px;
+      transform: translate(-50%, -50%) scale(1.04);
+    }
+    .play-overlay:active {
+      transform: translate(-50%, -50%) scale(.96);
     }
     .video-card.is-playing .play-overlay {
       opacity: 0;
@@ -1646,6 +1681,14 @@
       .process-list,
       .video-grid {
         grid-template-columns: 1fr 1fr;
+      }
+      .play-overlay {
+        width: 72px;
+        height: 72px;
+      }
+      .play-overlay::before {
+        margin-left: 5px;
+        border-width: 13px 0 13px 21px;
       }
       .rich-strip {
         display: flex;
@@ -2094,11 +2137,36 @@
         <p>Fashion-видео, outfit transition, UGC/Pinterest-подача и товарные ролики для карточек, соцсетей и продвижения.</p>
       </div>
       <div class="video-grid">
-        <figure class="video-card"><video src="./Порфтолио/видео/fashion видео.mp4" controls playsinline preload="metadata"></video><button class="play-overlay" type="button" aria-label="Воспроизвести fashion-видео"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></button><figcaption>fashion-видео</figcaption></figure>
-        <figure class="video-card"><video src="./Порфтолио/видео/fashion видео (2).mp4" controls playsinline preload="metadata"></video><button class="play-overlay" type="button" aria-label="Воспроизвести fashion-видео"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></button><figcaption>fashion-видео</figcaption></figure>
-        <figure class="video-card"><video src="./Порфтолио/видео/outsit transition.mp4" controls playsinline preload="metadata"></video><button class="play-overlay" type="button" aria-label="Воспроизвести outfit transition"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></button><figcaption>outfit transition</figcaption></figure>
-        <figure class="video-card"><video src="./Порфтолио/видео/ugc pinterest video.mp4" controls playsinline preload="metadata"></video><button class="play-overlay" type="button" aria-label="Воспроизвести UGC-видео"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></button><figcaption>UGC / Pinterest</figcaption></figure>
-        <figure class="video-card"><video src="./Порфтолио/видео/простое видео.mp4" controls playsinline preload="metadata"></video><button class="play-overlay" type="button" aria-label="Воспроизвести товарное видео"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></button><figcaption>товарное видео</figcaption></figure>
+        <figure class="video-card">
+          <video src="./Порфтолио/видео/fashion видео.mp4" poster="./video-previews/video-01.jpg" playsinline webkit-playsinline preload="metadata"></video>
+          <img class="video-poster" src="./video-previews/video-01.jpg" alt="" decoding="async" aria-hidden="true">
+          <button class="play-overlay" type="button" aria-label="Воспроизвести fashion-видео"></button>
+          <figcaption>fashion-видео</figcaption>
+        </figure>
+        <figure class="video-card">
+          <video src="./Порфтолио/видео/fashion видео (2).mp4" poster="./video-previews/video-02.jpg" playsinline webkit-playsinline preload="metadata"></video>
+          <img class="video-poster" src="./video-previews/video-02.jpg" alt="" decoding="async" aria-hidden="true">
+          <button class="play-overlay" type="button" aria-label="Воспроизвести fashion-видео"></button>
+          <figcaption>fashion-видео</figcaption>
+        </figure>
+        <figure class="video-card">
+          <video src="./Порфтолио/видео/outsit transition.mp4" poster="./video-previews/video-03.jpg" playsinline webkit-playsinline preload="metadata"></video>
+          <img class="video-poster" src="./video-previews/video-03.jpg" alt="" decoding="async" aria-hidden="true">
+          <button class="play-overlay" type="button" aria-label="Воспроизвести outfit transition"></button>
+          <figcaption>outfit transition</figcaption>
+        </figure>
+        <figure class="video-card">
+          <video src="./Порфтолио/видео/ugc pinterest video.mp4" poster="./video-previews/video-04.jpg" playsinline webkit-playsinline preload="metadata"></video>
+          <img class="video-poster" src="./video-previews/video-04.jpg" alt="" decoding="async" aria-hidden="true">
+          <button class="play-overlay" type="button" aria-label="Воспроизвести UGC-видео"></button>
+          <figcaption>UGC / Pinterest</figcaption>
+        </figure>
+        <figure class="video-card">
+          <video src="./Порфтолио/видео/простое видео.mp4" poster="./video-previews/video-05.jpg" playsinline webkit-playsinline preload="metadata"></video>
+          <img class="video-poster" src="./video-previews/video-05.jpg" alt="" decoding="async" aria-hidden="true">
+          <button class="play-overlay" type="button" aria-label="Воспроизвести товарное видео"></button>
+          <figcaption>товарное видео</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -2329,15 +2397,40 @@
       const video = card.querySelector("video");
       const button = card.querySelector(".play-overlay");
       video.volume = 0.5;
-      button.addEventListener("click", () => video.play());
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
+
+      const startPlayback = () => {
+        video.setAttribute("controls", "");
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch(() => {
+            video.removeAttribute("controls");
+            card.classList.remove("is-playing");
+          });
+        }
+      };
+
+      button.addEventListener("click", startPlayback);
       video.addEventListener("play", () => {
-        document.querySelectorAll(".video-card video").forEach((other) => {
-          if (other !== video) other.pause();
+        document.querySelectorAll(".video-card").forEach((otherCard) => {
+          const other = otherCard.querySelector("video");
+          if (other !== video) {
+            other.pause();
+            other.removeAttribute("controls");
+            otherCard.classList.remove("is-playing");
+          }
         });
         card.classList.add("is-playing");
       });
-      video.addEventListener("pause", () => card.classList.remove("is-playing"));
-      video.addEventListener("ended", () => card.classList.remove("is-playing"));
+      video.addEventListener("pause", () => {
+        if (!video.ended) card.classList.remove("is-playing");
+      });
+      video.addEventListener("ended", () => {
+        card.classList.remove("is-playing");
+        video.removeAttribute("controls");
+        video.currentTime = 0;
+      });
     });
 
     const lightbox = document.getElementById("lightbox");
