@@ -1099,14 +1099,15 @@
     .ab-shot-frame {
       position: relative;
       height: 100%;
-      aspect-ratio: var(--shot-ratio);
+      aspect-ratio: var(--shot-ratio, 3 / 4);
       overflow: hidden;
       background: var(--paper);
     }
     .ab-shot-frame img {
       width: 100%;
       height: 100%;
-      object-fit: fill;
+      object-fit: cover;
+      object-position: top center;
     }
     .ab-shot-frame::after {
       content: "";
@@ -1242,15 +1243,23 @@
       place-items: center;
       width: 58px;
       height: 58px;
-      padding: 0 0 0 4px;
+      padding: 0;
       border: 1px solid rgba(255,255,255,.8);
       border-radius: 50%;
       background: rgba(148,27,38,.88);
       color: var(--paper);
-      font-size: 22px;
       cursor: pointer;
       transform: translate(-50%, -50%);
       transition: opacity .2s ease, background .2s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .play-overlay svg {
+      display: block;
+      width: 22px;
+      height: 22px;
+      margin-left: 3px;
+      fill: currentColor;
     }
     .play-overlay:hover,
     .play-overlay:focus-visible {
@@ -2039,14 +2048,14 @@
           <span>CTR</span>
         </div>
         <div class="ab-test-screens">
-          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 164 / 411"><img src="./Порфтолио/джинсы мужские/8003 тест конвейер/8003 (8).png" alt="Результаты A/B теста, вариант 8"></div></div>
-          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 131 / 318"><img src="./Порфтолио/джинсы мужские/8003 тест конвейер/8003 (5).png" alt="Результаты A/B теста, вариант 5"></div></div>
-          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 150 / 337"><img src="./Порфтолио/джинсы мужские/8003 тест конвейер/8003 (10).png" alt="Результаты A/B теста, вариант 10"></div></div>
-          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 171 / 369"><img src="./Порфтолио/джинсы мужские/8003 тест конвейер/8003 (3).png" alt="Результаты A/B теста, вариант 3"></div></div>
-          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 167 / 379"><img src="./Порфтолио/джинсы мужские/8003 тест конвейер/8003 (2).png" alt="Результаты A/B теста, вариант 2"></div></div>
-          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 150 / 335"><img src="./Порфтолио/джинсы мужские/8003 тест конвейер/8003 (12).png" alt="Результаты A/B теста, вариант 12"></div></div>
-          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 95 / 238"><img src="./Порфтолио/джинсы мужские/8003 тест конвейер/8003 (13).png" alt="Результаты A/B теста, вариант 13"></div></div>
-          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 101 / 247"><img src="./Порфтолио/джинсы мужские/8003 тест конвейер/8003 (14).png" alt="Результаты A/B теста, вариант 14"></div></div>
+          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 164 / 411"><img src="./Порфтолио/AB тесты/photo_2026-07-30_13-38-58.jpg" alt="Результаты A/B теста, вариант 8"></div></div>
+          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 131 / 318"><img src="./Порфтолио/AB тесты/photo_2026-07-30_13-39-06.jpg" alt="Результаты A/B теста, вариант 5"></div></div>
+          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 150 / 337"><img src="./Порфтолио/AB тесты/photo_2026-07-30_13-39-10.jpg" alt="Результаты A/B теста, вариант 10"></div></div>
+          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 171 / 369"><img src="./Порфтолио/AB тесты/photo_2026-07-30_13-39-14.jpg" alt="Результаты A/B теста, вариант 3"></div></div>
+          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 167 / 379"><img src="./Порфтолио/AB тесты/photo_2026-07-30_13-39-17.jpg" alt="Результаты A/B теста, вариант 2"></div></div>
+          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 150 / 335"><img src="./Порфтолио/AB тесты/photo_2026-07-30_13-39-20.jpg" alt="Результаты A/B теста, вариант 2"></div></div>
+          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 95 / 238"><img src="./Порфтолио/AB тесты/photo_2026-07-30_13-39-24.jpg" alt="Результаты A/B теста, вариант 3"></div></div>
+          <div class="ab-test-card"><div class="ab-shot-frame" style="--shot-ratio: 101 / 247"><img src="./Порфтолио/AB тесты/photo_2026-07-30_13-39-31.jpg" alt="Результаты A/B теста, вариант 4"></div></div>
         </div>
       </div>
     </section>
@@ -2085,11 +2094,11 @@
         <p>Fashion-видео, outfit transition, UGC/Pinterest-подача и товарные ролики для карточек, соцсетей и продвижения.</p>
       </div>
       <div class="video-grid">
-        <figure class="video-card"><video src="./Порфтолио/видео/fashion видео.mp4" controls playsinline preload="metadata"></video><button class="play-overlay" type="button" aria-label="Воспроизвести fashion-видео">▶</button><figcaption>fashion-видео</figcaption></figure>
-        <figure class="video-card"><video src="./Порфтолио/видео/fashion видео (2).mp4" controls playsinline preload="metadata"></video><button class="play-overlay" type="button" aria-label="Воспроизвести fashion-видео">▶</button><figcaption>fashion-видео</figcaption></figure>
-        <figure class="video-card"><video src="./Порфтолио/видео/outsit transition.mp4" controls playsinline preload="metadata"></video><button class="play-overlay" type="button" aria-label="Воспроизвести outfit transition">▶</button><figcaption>outfit transition</figcaption></figure>
-        <figure class="video-card"><video src="./Порфтолио/видео/ugc pinterest video.mp4" controls playsinline preload="metadata"></video><button class="play-overlay" type="button" aria-label="Воспроизвести UGC-видео">▶</button><figcaption>UGC / Pinterest</figcaption></figure>
-        <figure class="video-card"><video src="./Порфтолио/видео/простое видео.mp4" controls playsinline preload="metadata"></video><button class="play-overlay" type="button" aria-label="Воспроизвести товарное видео">▶</button><figcaption>товарное видео</figcaption></figure>
+        <figure class="video-card"><video src="./Порфтолио/видео/fashion видео.mp4" controls playsinline preload="metadata"></video><button class="play-overlay" type="button" aria-label="Воспроизвести fashion-видео"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></button><figcaption>fashion-видео</figcaption></figure>
+        <figure class="video-card"><video src="./Порфтолио/видео/fashion видео (2).mp4" controls playsinline preload="metadata"></video><button class="play-overlay" type="button" aria-label="Воспроизвести fashion-видео"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></button><figcaption>fashion-видео</figcaption></figure>
+        <figure class="video-card"><video src="./Порфтолио/видео/outsit transition.mp4" controls playsinline preload="metadata"></video><button class="play-overlay" type="button" aria-label="Воспроизвести outfit transition"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></button><figcaption>outfit transition</figcaption></figure>
+        <figure class="video-card"><video src="./Порфтолио/видео/ugc pinterest video.mp4" controls playsinline preload="metadata"></video><button class="play-overlay" type="button" aria-label="Воспроизвести UGC-видео"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></button><figcaption>UGC / Pinterest</figcaption></figure>
+        <figure class="video-card"><video src="./Порфтолио/видео/простое видео.mp4" controls playsinline preload="metadata"></video><button class="play-overlay" type="button" aria-label="Воспроизвести товарное видео"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg></button><figcaption>товарное видео</figcaption></figure>
       </div>
     </section>
 
