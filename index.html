@@ -1234,6 +1234,7 @@
     }
     .video-card.is-playing .video-poster {
       opacity: 0;
+      pointer-events: none;
     }
     .video-card figcaption {
       position: absolute;
@@ -1302,9 +1303,14 @@
     .play-overlay:active {
       transform: translate(-50%, -50%) scale(.96);
     }
+    .video-card.is-playing video {
+      position: relative;
+      z-index: 5;
+    }
     .video-card.is-playing .play-overlay {
       opacity: 0;
       pointer-events: none;
+      z-index: 1;
     }
 
     .album {
@@ -2400,36 +2406,46 @@
       video.setAttribute("playsinline", "");
       video.setAttribute("webkit-playsinline", "");
 
-      const startPlayback = () => {
+      const activate = () => {
+        card.classList.add("is-playing");
         video.setAttribute("controls", "");
+      };
+
+      const deactivate = () => {
+        card.classList.remove("is-playing");
+        video.removeAttribute("controls");
+      };
+
+      const startPlayback = (event) => {
+        if (event) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        activate();
         const playPromise = video.play();
         if (playPromise && typeof playPromise.catch === "function") {
-          playPromise.catch(() => {
-            video.removeAttribute("controls");
-            card.classList.remove("is-playing");
-          });
+          playPromise.catch(() => deactivate());
         }
       };
 
       button.addEventListener("click", startPlayback);
+
       video.addEventListener("play", () => {
         document.querySelectorAll(".video-card").forEach((otherCard) => {
           const other = otherCard.querySelector("video");
           if (other !== video) {
             other.pause();
-            other.removeAttribute("controls");
             otherCard.classList.remove("is-playing");
+            other.removeAttribute("controls");
           }
         });
-        card.classList.add("is-playing");
+        activate();
       });
-      video.addEventListener("pause", () => {
-        if (!video.ended) card.classList.remove("is-playing");
-      });
+
+      // Keep custom overlay/poster hidden while user uses native pause/play.
       video.addEventListener("ended", () => {
-        card.classList.remove("is-playing");
-        video.removeAttribute("controls");
-        video.currentTime = 0;
+        deactivate();
+        try { video.currentTime = 0; } catch (_) {}
       });
     });
 
